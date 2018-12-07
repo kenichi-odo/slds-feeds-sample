@@ -10,13 +10,13 @@
 </style>
 
 <template lang="pug">
-article.slds-p-around_small.slds-brand-band.slds-brand-band_large(:class="$style.root")
+article.slds-brand-band.slds-brand-band_large(:class="[$style.root, { 'slds-p-around_small': !is_mobile }]" :style="root_style")
   transition(name="fade")
     v-spinner(v-if="processing_ids.length !== 0")
 
   template(v-if="rendered")
     v-header(ref="header")
-    v-contents.slds-m-top_medium
+    v-contents
 
   transition(name="fade")
     v-toast(v-if="labels.length !== 0")
@@ -43,8 +43,15 @@ export default Vue.extend({
     height: 'auto',
   }),
   computed: {
-    ...mapper.mapState(['is_show_new_feed_modal', 'processing_ids', 'error']),
+    ...mapper.mapState(['window', 'is_show_new_feed_modal', 'processing_ids', 'error']),
+    ...mapper.mapGetters(['is_mobile']),
     ...mapper.module('toast').mapState(['labels']),
+    root_style(): { width: string; height: string } {
+      if (this.window.width === 0) {
+        return { width: 'auto', height: 'auto' }
+      }
+      return { width: `${this.window.width}px`, height: `${this.window.height}px` }
+    },
   },
   async mounted() {
     const lid = await this.showLoading()

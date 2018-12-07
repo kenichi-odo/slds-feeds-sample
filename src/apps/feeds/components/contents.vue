@@ -1,14 +1,15 @@
 <style lang="stylus" module>
 .contents
   overflow scroll
+  -webkit-overflow-scrolling touch
 
 .attachment_name_area
   width 100%
 </style>
 
 <template lang="pug">
-.slds-grid.slds-grid_align-center
-  article.slds-card.slds-size_1-of-2
+div(:class="{ 'slds-grid': !is_mobile, 'slds-grid_align-center': !is_mobile ,'slds-m-top_medium': !is_mobile }")
+  article.slds-card(:class="{ 'slds-size_1-of-2': !is_mobile, 'slds-has-top-magnet': is_mobile, 'slds-has-bottom-magnet': is_mobile }")
     div(:class="$style.contents" :style="{ height: contents.height }")
       v-no-data(v-if="feeds.length === 0")
 
@@ -94,13 +95,13 @@
                                 li.slds-dropdown__item(role="presentation")
                                   a(role="menuitem" @click="clickDelete({ object: comment })") Delete
                       .slds-comment__content.slds-text-longform {{ comment.content__c }}
-                      footer.slds-grid
+                      footer.slds-grid.slds-grid_align-spread
                         ul.slds-list_horizontal.slds-has-dividers_right.slds-text-body_small
                           li.slds-item
                             button.slds-button_reset.slds-text-color_weak(@click="clickLikeComment({ comment_id: comment.Id })")
                               | {{ isLikedComment({ comment_id: comment.Id }) ? 'Unlike' : 'like' }}
                           li.slds-item {{ comment.getElapsedTimeLabel() }}
-                        ul.slds-post__footer-meta-list.slds-list_horizontal.slds-has-dividers_right.slds-text-title
+                        ul.slds-list_horizontal.slds-has-dividers_right.slds-text-title
                           li.slds-item {{ getNumberOfCommentLikes({ comment_id: comment.Id }) }} likes
 
               .slds-media.slds-comment.slds-hint-parent(v-if="expand_comment_feed_id === feed.Id")
@@ -134,13 +135,20 @@ export default Vue.extend({
     comment: { value: '' },
   }),
   computed: {
-    ...mapper.mapState(['users', 'objects_attributes']),
+    ...mapper.mapState(['users', 'objects_attributes', 'window']),
     ...mapper.module('contents').mapState(['feeds', 'comments', 'likes', 'attachments']),
-    ...mapper.mapGetters(['svgs', 'login_user', 'time_zone_offset']),
+    ...mapper.mapGetters(['svgs', 'login_user', 'time_zone_offset', 'is_mobile']),
   },
-  mounted() {
-    const header_height = (this.$parent.$refs.header as Vue).$el.offsetHeight
-    this.contents.height = `${innerHeight - header_height - 8 * 7}px`
+  async mounted() {
+    // await this.$nextTick()
+
+    const header_height = (this.$parent.$refs.header as Vue).$el.clientHeight
+    let margin = 0
+    if (!this.is_mobile) {
+      margin = 8 * 7
+    }
+
+    this.contents.height = `${this.window.height - header_height - margin}px`
 
     addEventListener('click', this.windowClick)
   },

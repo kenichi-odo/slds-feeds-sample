@@ -66,4 +66,8 @@
         <tab>feeds</tab>
         <visibility>Visible</visibility>
     </tabSettings>
+    <tabSettings>
+        <tab>feeds_mobile</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
 </PermissionSet>

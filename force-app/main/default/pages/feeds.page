@@ -7,7 +7,7 @@
   sidebar="false"
   standardStylesheets="false">
 
-  <apex:remoteObjects>
+  <apex:remoteObjects >
     <apex:remoteObjectModel name="Feeds__c">
       <apex:remoteObjectField name="content__c" />
       <apex:remoteObjectField name="CreatedById" />

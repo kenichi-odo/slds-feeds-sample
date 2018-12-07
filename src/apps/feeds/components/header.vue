@@ -1,5 +1,5 @@
 <template lang="pug">
-.slds-page-header
+.slds-page-header(:class="{ 'slds-has-top-magnet': is_mobile, 'slds-has-bottom-magnet': is_mobile }")
   .slds-page-header__row
     .slds-page-header__col-title
       .slds-media
@@ -16,7 +16,7 @@
               .slds-dropdown-trigger.slds-dropdown-trigger_click(:class="{ 'slds-is-open': is_show_dropdown }")
                 button.slds-button.slds-button_icon.slds-button_icon-small(@click.stop="is_show_dropdown = !is_show_dropdown")
                   svg.slds-button__icon.slds-icon_x-small(v-html="svgs.utilities.down")
-                .slds-dropdown.slds-dropdown_left.slds-dropdown_small
+                .slds-dropdown.slds-dropdown_center.slds-dropdown_small
                   ul.slds-dropdown__list(role="menu")
                     li.slds-dropdown__item(role="presentation" v-for="o in _order_types" :key="o" :class="{ 'slds-is-selected': selected_order_type === o }")
                       a(role="menuitemcheckbox" @click="clickItem({ order_type: o })")
@@ -58,7 +58,7 @@ export default Vue.extend({
     ...mapper.mapState(['objects_attributes']),
     ...mapper.module('contents').mapState(['feeds', 'likes', 'selected_order_type']),
     ...mapper.module('contents').mapGetters(['order_types']),
-    ...mapper.mapGetters(['svgs']),
+    ...mapper.mapGetters(['svgs', 'is_mobile']),
     _order_types() {
       return this.order_types
     },

@@ -21,9 +21,14 @@ class state {
   is_show_new_feed_modal = false
   users: UserRecord[] = []
   common_mdts: Common__mdtRecord[] = []
+  window = { width: 0, height: 0 }
 }
 
 class getters extends Getters<state>() {
+  get is_mobile() {
+    return innerWidth < 480
+  }
+
   get remote_actions() {
     return RemoteActions({ keys: _remoting_keys })
   }
@@ -148,6 +153,10 @@ class mutations extends Mutations<state>() {
   commitIsShowNewFeedModal(_: boolean) {
     this.state.is_show_new_feed_modal = _
   }
+
+  setWindowSize({ width, height }: { width: number; height: number }) {
+    this.state.window = { width, height }
+  }
 }
 
 class actions extends Actions<state, getters, mutations>() {
@@ -162,6 +171,8 @@ class actions extends Actions<state, getters, mutations>() {
   }
 
   async init() {
+    this.mutations.setWindowSize({ width: innerWidth, height: innerHeight })
+
     const first_awaits = await Promise.all([
       this.getters.remote_actions.getObjectsAttributes({
         object_names: ['Feeds__c', 'Comments__c', 'Likes__c'],

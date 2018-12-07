@@ -470,11 +470,23 @@ var __generator = undefined && undefined.__generator || function (thisArg, body)
       }
     };
   },
-  computed: __assign({}, _store__WEBPACK_IMPORTED_MODULE_1__["mapper"].mapState(['users', 'objects_attributes']), _store__WEBPACK_IMPORTED_MODULE_1__["mapper"].module('contents').mapState(['feeds', 'comments', 'likes', 'attachments']), _store__WEBPACK_IMPORTED_MODULE_1__["mapper"].mapGetters(['svgs', 'login_user', 'time_zone_offset'])),
+  computed: __assign({}, _store__WEBPACK_IMPORTED_MODULE_1__["mapper"].mapState(['users', 'objects_attributes', 'window']), _store__WEBPACK_IMPORTED_MODULE_1__["mapper"].module('contents').mapState(['feeds', 'comments', 'likes', 'attachments']), _store__WEBPACK_IMPORTED_MODULE_1__["mapper"].mapGetters(['svgs', 'login_user', 'time_zone_offset', 'is_mobile'])),
   mounted: function mounted() {
-    var header_height = this.$parent.$refs.header.$el.offsetHeight;
-    this.contents.height = innerHeight - header_height - 8 * 7 + "px";
-    addEventListener('click', this.windowClick);
+    return __awaiter(this, void 0, void 0, function () {
+      var header_height, margin;
+      return __generator(this, function (_a) {
+        header_height = this.$parent.$refs.header.$el.clientHeight;
+        margin = 0;
+
+        if (!this.is_mobile) {
+          margin = 8 * 7;
+        }
+
+        this.contents.height = this.window.height - header_height - margin + "px";
+        addEventListener('click', this.windowClick);
+        return [2];
+      });
+    });
   },
   methods: __assign({}, _store__WEBPACK_IMPORTED_MODULE_1__["mapper"].mapGetters(['getAttachmentIcon']), _store__WEBPACK_IMPORTED_MODULE_1__["mapper"].mapMutations(['commitError']), _store__WEBPACK_IMPORTED_MODULE_1__["mapper"].mapActions(['showLoading', 'hideLoading']), _store__WEBPACK_IMPORTED_MODULE_1__["mapper"].module('contents').mapActions(['fetch']), _store__WEBPACK_IMPORTED_MODULE_1__["mapper"].module('toast').mapActions({
     showToast: 'show'
@@ -1096,7 +1108,7 @@ var __spread = undefined && undefined.__spread || function () {
       is_show_more: false
     };
   },
-  computed: __assign({}, _store__WEBPACK_IMPORTED_MODULE_1__["mapper"].mapState(['objects_attributes']), _store__WEBPACK_IMPORTED_MODULE_1__["mapper"].module('contents').mapState(['feeds', 'likes', 'selected_order_type']), _store__WEBPACK_IMPORTED_MODULE_1__["mapper"].module('contents').mapGetters(['order_types']), _store__WEBPACK_IMPORTED_MODULE_1__["mapper"].mapGetters(['svgs']), {
+  computed: __assign({}, _store__WEBPACK_IMPORTED_MODULE_1__["mapper"].mapState(['objects_attributes']), _store__WEBPACK_IMPORTED_MODULE_1__["mapper"].module('contents').mapState(['feeds', 'likes', 'selected_order_type']), _store__WEBPACK_IMPORTED_MODULE_1__["mapper"].module('contents').mapGetters(['order_types']), _store__WEBPACK_IMPORTED_MODULE_1__["mapper"].mapGetters(['svgs', 'is_mobile']), {
     _order_types: function _order_types() {
       return this.order_types;
     },
@@ -1681,7 +1693,7 @@ var __assign = undefined && undefined.__assign || function () {
 
 
 /* harmony default export */ __webpack_exports__["default"] = (vue__WEBPACK_IMPORTED_MODULE_0__["default"].extend({
-  computed: __assign({}, _store__WEBPACK_IMPORTED_MODULE_1__["mapper"].mapGetters(['svgs']), _store__WEBPACK_IMPORTED_MODULE_1__["mapper"].module('toast').mapState(['labels'])),
+  computed: __assign({}, _store__WEBPACK_IMPORTED_MODULE_1__["mapper"].mapGetters(['svgs', 'is_mobile']), _store__WEBPACK_IMPORTED_MODULE_1__["mapper"].module('toast').mapState(['labels'])),
   methods: __assign({}, _store__WEBPACK_IMPORTED_MODULE_1__["mapper"].module('toast').mapMutations(['removeLabel']), {
     clickClose: function clickClose() {
       this.removeLabel({
@@ -1888,7 +1900,21 @@ var __generator = undefined && undefined.__generator || function (thisArg, body)
       height: 'auto'
     };
   },
-  computed: __assign({}, _store__WEBPACK_IMPORTED_MODULE_7__["mapper"].mapState(['is_show_new_feed_modal', 'processing_ids', 'error']), _store__WEBPACK_IMPORTED_MODULE_7__["mapper"].module('toast').mapState(['labels'])),
+  computed: __assign({}, _store__WEBPACK_IMPORTED_MODULE_7__["mapper"].mapState(['window', 'is_show_new_feed_modal', 'processing_ids', 'error']), _store__WEBPACK_IMPORTED_MODULE_7__["mapper"].mapGetters(['is_mobile']), _store__WEBPACK_IMPORTED_MODULE_7__["mapper"].module('toast').mapState(['labels']), {
+    root_style: function root_style() {
+      if (this.window.width === 0) {
+        return {
+          width: 'auto',
+          height: 'auto'
+        };
+      }
+
+      return {
+        width: this.window.width + "px",
+        height: this.window.height + "px"
+      };
+    }
+  }),
   mounted: function mounted() {
     return __awaiter(this, void 0, void 0, function () {
       var lid, _;
@@ -10348,7 +10374,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.contents_1FbfSrSv {\n  overflow: scroll;\n}\n.attachment_name_area_3CIUHR5w {\n  width: 100%;\n}\n", ""]);
+exports.push([module.i, "\n.contents_1FbfSrSv {\n  overflow: scroll;\n  -webkit-overflow-scrolling: touch;\n}\n.attachment_name_area_3CIUHR5w {\n  width: 100%;\n}\n", ""]);
 
 // exports
 exports.locals = {
@@ -10396,6 +10422,27 @@ exports.push([module.i, "\n.root_16VIiyL9 {\n  position: fixed;\n  z-index: 9999
 // exports
 exports.locals = {
 	"root": "root_16VIiyL9"
+};
+
+/***/ }),
+
+/***/ "../../../node_modules/css-loader/index.js?!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src/index.js?!../../../node_modules/stylus-loader/index.js!../../../node_modules/vue-loader/lib/index.js?!./components/toast.vue?vue&type=style&index=0&lang=stylus&module=true&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** /Users/kenichi-odo/apps/slds-feeds-sample/node_modules/css-loader??ref--2-oneOf-0-1!/Users/kenichi-odo/apps/slds-feeds-sample/node_modules/vue-loader/lib/loaders/stylePostLoader.js!/Users/kenichi-odo/apps/slds-feeds-sample/node_modules/postcss-loader/src??postcss!/Users/kenichi-odo/apps/slds-feeds-sample/node_modules/stylus-loader!/Users/kenichi-odo/apps/slds-feeds-sample/node_modules/vue-loader/lib??vue-loader-options!./components/toast.vue?vue&type=style&index=0&lang=stylus&module=true& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "../../../node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.mobile_3vSOzTG0 {\n  min-width: 94% !important;\n}\n", ""]);
+
+// exports
+exports.locals = {
+	"mobile": "mobile_3vSOzTG0"
 };
 
 /***/ }),
@@ -30137,304 +30184,304 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "slds-grid slds-grid_align-center" }, [
-    _c("article", { staticClass: "slds-card slds-size_1-of-2" }, [
+  return _c(
+    "div",
+    {
+      class: {
+        "slds-grid": !_vm.is_mobile,
+        "slds-grid_align-center": !_vm.is_mobile,
+        "slds-m-top_medium": !_vm.is_mobile
+      }
+    },
+    [
       _c(
-        "div",
-        { class: _vm.$style.contents, style: { height: _vm.contents.height } },
+        "article",
+        {
+          staticClass: "slds-card",
+          class: {
+            "slds-size_1-of-2": !_vm.is_mobile,
+            "slds-has-top-magnet": _vm.is_mobile,
+            "slds-has-bottom-magnet": _vm.is_mobile
+          }
+        },
         [
-          _vm.feeds.length === 0
-            ? _c("v-no-data")
-            : _c(
-                "div",
-                { staticClass: "slds-feed" },
-                [
-                  _c(
-                    "transition-group",
-                    {
-                      staticClass: "slds-feed__list",
-                      attrs: { tag: "ul", name: "tiles" }
-                    },
-                    _vm._l(_vm.feeds, function(feed) {
-                      return _c(
-                        "li",
-                        { key: feed.Id, staticClass: "slds-feed__item" },
-                        [
-                          _c("article", { staticClass: "slds-post" }, [
-                            _c(
-                              "header",
-                              { staticClass: "slds-post__header slds-media" },
-                              [
+          _c(
+            "div",
+            {
+              class: _vm.$style.contents,
+              style: { height: _vm.contents.height }
+            },
+            [
+              _vm.feeds.length === 0
+                ? _c("v-no-data")
+                : _c(
+                    "div",
+                    { staticClass: "slds-feed" },
+                    [
+                      _c(
+                        "transition-group",
+                        {
+                          staticClass: "slds-feed__list",
+                          attrs: { tag: "ul", name: "tiles" }
+                        },
+                        _vm._l(_vm.feeds, function(feed) {
+                          return _c(
+                            "li",
+                            { key: feed.Id, staticClass: "slds-feed__item" },
+                            [
+                              _c("article", { staticClass: "slds-post" }, [
                                 _c(
-                                  "div",
-                                  { staticClass: "slds-media__figure" },
+                                  "header",
+                                  {
+                                    staticClass: "slds-post__header slds-media"
+                                  },
                                   [
                                     _c(
                                       "div",
-                                      {
-                                        staticClass:
-                                          "slds-avatar slds-avatar_circle slds-avatar_large"
-                                      },
+                                      { staticClass: "slds-media__figure" },
                                       [
-                                        _c("img", {
-                                          attrs: {
-                                            alt: _vm.getUserName({
-                                              user_id: feed.CreatedById
-                                            }),
-                                            src: _vm.getAvatar({
-                                              user_id: feed.CreatedById
+                                        _c(
+                                          "div",
+                                          {
+                                            staticClass:
+                                              "slds-avatar slds-avatar_circle slds-avatar_large"
+                                          },
+                                          [
+                                            _c("img", {
+                                              attrs: {
+                                                alt: _vm.getUserName({
+                                                  user_id: feed.CreatedById
+                                                }),
+                                                src: _vm.getAvatar({
+                                                  user_id: feed.CreatedById
+                                                })
+                                              }
                                             })
-                                          }
-                                        })
+                                          ]
+                                        )
+                                      ]
+                                    ),
+                                    _c(
+                                      "div",
+                                      { staticClass: "slds-media__body" },
+                                      [
+                                        _c(
+                                          "div",
+                                          {
+                                            staticClass:
+                                              "slds-grid slds-grid_align-spread slds-has-flexi-truncate"
+                                          },
+                                          [
+                                            _c("p", [
+                                              _vm._v(
+                                                _vm._s(
+                                                  _vm.getUserName({
+                                                    user_id: feed.CreatedById
+                                                  })
+                                                )
+                                              )
+                                            ]),
+                                            _vm.login_user.Id ===
+                                            feed.CreatedById
+                                              ? _c(
+                                                  "div",
+                                                  {
+                                                    staticClass:
+                                                      "slds-dropdown-trigger slds-dropdown-trigger_click",
+                                                    class: {
+                                                      "slds-is-open":
+                                                        _vm.is_show_menu_id ===
+                                                        feed.Id
+                                                    }
+                                                  },
+                                                  [
+                                                    _c(
+                                                      "button",
+                                                      {
+                                                        staticClass:
+                                                          "slds-button slds-button_icon slds-button_icon-border slds-button_icon-x-small",
+                                                        on: {
+                                                          click: function(
+                                                            $event
+                                                          ) {
+                                                            $event.stopPropagation()
+                                                            _vm.clickMenu({
+                                                              object_id: feed.Id
+                                                            })
+                                                          }
+                                                        }
+                                                      },
+                                                      [
+                                                        _c("svg", {
+                                                          staticClass:
+                                                            "slds-button__icon",
+                                                          domProps: {
+                                                            innerHTML: _vm._s(
+                                                              _vm.svgs.utilities
+                                                                .down
+                                                            )
+                                                          }
+                                                        })
+                                                      ]
+                                                    ),
+                                                    _c(
+                                                      "div",
+                                                      {
+                                                        staticClass:
+                                                          "slds-dropdown slds-dropdown_right"
+                                                      },
+                                                      [
+                                                        _c(
+                                                          "ul",
+                                                          {
+                                                            staticClass:
+                                                              "slds-dropdown__list",
+                                                            attrs: {
+                                                              role: "menu"
+                                                            }
+                                                          },
+                                                          [
+                                                            _c(
+                                                              "li",
+                                                              {
+                                                                staticClass:
+                                                                  "slds-dropdown__item",
+                                                                attrs: {
+                                                                  role:
+                                                                    "presentation"
+                                                                }
+                                                              },
+                                                              [
+                                                                _c(
+                                                                  "a",
+                                                                  {
+                                                                    attrs: {
+                                                                      role:
+                                                                        "menuitem"
+                                                                    },
+                                                                    on: {
+                                                                      click: function(
+                                                                        $event
+                                                                      ) {
+                                                                        _vm.clickDelete(
+                                                                          {
+                                                                            object: feed
+                                                                          }
+                                                                        )
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  [
+                                                                    _vm._v(
+                                                                      "Delete"
+                                                                    )
+                                                                  ]
+                                                                )
+                                                              ]
+                                                            )
+                                                          ]
+                                                        )
+                                                      ]
+                                                    )
+                                                  ]
+                                                )
+                                              : _vm._e()
+                                          ]
+                                        ),
+                                        _c(
+                                          "p",
+                                          {
+                                            staticClass: "slds-text-body_small"
+                                          },
+                                          [
+                                            _vm._v(
+                                              _vm._s(feed.getElapsedTimeLabel())
+                                            )
+                                          ]
+                                        )
                                       ]
                                     )
                                   ]
                                 ),
-                                _c("div", { staticClass: "slds-media__body" }, [
-                                  _c(
-                                    "div",
-                                    {
-                                      staticClass:
-                                        "slds-grid slds-grid_align-spread slds-has-flexi-truncate"
-                                    },
-                                    [
-                                      _c("p", [
-                                        _vm._v(
-                                          _vm._s(
-                                            _vm.getUserName({
-                                              user_id: feed.CreatedById
-                                            })
-                                          )
-                                        )
-                                      ]),
-                                      _vm.login_user.Id === feed.CreatedById
-                                        ? _c(
-                                            "div",
-                                            {
-                                              staticClass:
-                                                "slds-dropdown-trigger slds-dropdown-trigger_click",
-                                              class: {
-                                                "slds-is-open":
-                                                  _vm.is_show_menu_id ===
-                                                  feed.Id
-                                              }
-                                            },
-                                            [
-                                              _c(
-                                                "button",
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "slds-post__content slds-text-longform"
+                                  },
+                                  [_vm._v(_vm._s(feed.content__c))]
+                                ),
+                                _vm.getAttachments({ parent_id: feed.Id })
+                                  .length !== 0
+                                  ? _c(
+                                      "div",
+                                      { staticClass: "slds-post__payload" },
+                                      [
+                                        _c(
+                                          "ul",
+                                          {
+                                            staticClass:
+                                              "slds-grid slds-grid_pull-padded"
+                                          },
+                                          _vm._l(
+                                            _vm.getAttachments({
+                                              parent_id: feed.Id
+                                            }),
+                                            function(a) {
+                                              return _c(
+                                                "li",
                                                 {
+                                                  key: a.Id,
                                                   staticClass:
-                                                    "slds-button slds-button_icon slds-button_icon-border slds-button_icon-x-small",
-                                                  on: {
-                                                    click: function($event) {
-                                                      $event.stopPropagation()
-                                                      _vm.clickMenu({
-                                                        object_id: feed.Id
-                                                      })
-                                                    }
-                                                  }
-                                                },
-                                                [
-                                                  _c("svg", {
-                                                    staticClass:
-                                                      "slds-button__icon",
-                                                    domProps: {
-                                                      innerHTML: _vm._s(
-                                                        _vm.svgs.utilities.down
-                                                      )
-                                                    }
-                                                  })
-                                                ]
-                                              ),
-                                              _c(
-                                                "div",
-                                                {
-                                                  staticClass:
-                                                    "slds-dropdown slds-dropdown_right"
+                                                    "slds-p-horizontal_xx-small slds-size_1-of-2 slds-medium-size_1-of-3"
                                                 },
                                                 [
                                                   _c(
-                                                    "ul",
+                                                    "div",
                                                     {
                                                       staticClass:
-                                                        "slds-dropdown__list",
-                                                      attrs: { role: "menu" }
+                                                        "slds-file slds-file_card",
+                                                      on: {
+                                                        click: function(
+                                                          $event
+                                                        ) {
+                                                          _vm.clickAttachment({
+                                                            id: a.Id
+                                                          })
+                                                        }
+                                                      }
                                                     },
                                                     [
-                                                      _c(
-                                                        "li",
-                                                        {
-                                                          staticClass:
-                                                            "slds-dropdown__item",
-                                                          attrs: {
-                                                            role: "presentation"
-                                                          }
-                                                        },
-                                                        [
-                                                          _c(
-                                                            "a",
-                                                            {
-                                                              attrs: {
-                                                                role: "menuitem"
-                                                              },
-                                                              on: {
-                                                                click: function(
-                                                                  $event
-                                                                ) {
-                                                                  _vm.clickDelete(
-                                                                    {
-                                                                      object: feed
-                                                                    }
-                                                                  )
-                                                                }
-                                                              }
-                                                            },
-                                                            [_vm._v("Delete")]
-                                                          )
-                                                        ]
-                                                      )
-                                                    ]
-                                                  )
-                                                ]
-                                              )
-                                            ]
-                                          )
-                                        : _vm._e()
-                                    ]
-                                  ),
-                                  _c(
-                                    "p",
-                                    { staticClass: "slds-text-body_small" },
-                                    [_vm._v(_vm._s(feed.getElapsedTimeLabel()))]
-                                  )
-                                ])
-                              ]
-                            ),
-                            _c(
-                              "div",
-                              {
-                                staticClass:
-                                  "slds-post__content slds-text-longform"
-                              },
-                              [_vm._v(_vm._s(feed.content__c))]
-                            ),
-                            _vm.getAttachments({ parent_id: feed.Id })
-                              .length !== 0
-                              ? _c(
-                                  "div",
-                                  { staticClass: "slds-post__payload" },
-                                  [
-                                    _c(
-                                      "ul",
-                                      {
-                                        staticClass:
-                                          "slds-grid slds-grid_pull-padded"
-                                      },
-                                      _vm._l(
-                                        _vm.getAttachments({
-                                          parent_id: feed.Id
-                                        }),
-                                        function(a) {
-                                          return _c(
-                                            "li",
-                                            {
-                                              key: a.Id,
-                                              staticClass:
-                                                "slds-p-horizontal_xx-small slds-size_1-of-2 slds-medium-size_1-of-3"
-                                            },
-                                            [
-                                              _c(
-                                                "div",
-                                                {
-                                                  staticClass:
-                                                    "slds-file slds-file_card",
-                                                  on: {
-                                                    click: function($event) {
-                                                      _vm.clickAttachment({
-                                                        id: a.Id
-                                                      })
-                                                    }
-                                                  }
-                                                },
-                                                [
-                                                  _c("figure", [
-                                                    _c(
-                                                      "a",
-                                                      {
-                                                        staticClass:
-                                                          "slds-file__crop"
-                                                      },
-                                                      [
-                                                        a.ContentType != null &&
-                                                        a.ContentType.includes(
-                                                          "image"
-                                                        )
-                                                          ? _c("img", {
-                                                              attrs: {
-                                                                src:
-                                                                  "/servlet/servlet.FileDownload?file=" +
-                                                                  a.Id
-                                                              }
-                                                            })
-                                                          : _c(
-                                                              "span",
-                                                              {
-                                                                staticClass:
-                                                                  "slds-file__icon slds-icon_container"
-                                                              },
-                                                              [
-                                                                _c("svg", {
-                                                                  staticClass:
-                                                                    "slds-icon",
-                                                                  domProps: {
-                                                                    innerHTML: _vm._s(
-                                                                      _vm._getAttachmentIcon(
-                                                                        {
-                                                                          content_type:
-                                                                            a.ContentType
-                                                                        }
-                                                                      )
-                                                                    )
-                                                                  }
-                                                                })
-                                                              ]
-                                                            )
-                                                      ]
-                                                    ),
-                                                    _c(
-                                                      "figcaption",
-                                                      {
-                                                        staticClass:
-                                                          "slds-file__title slds-file__title_card slds-file-has-actions"
-                                                      },
-                                                      [
+                                                      _c("figure", [
                                                         _c(
-                                                          "div",
+                                                          "a",
                                                           {
                                                             staticClass:
-                                                              "slds-media slds-media_small slds-media_center",
-                                                            class:
-                                                              _vm.$style
-                                                                .attachment_name_area
+                                                              "slds-file__crop"
                                                           },
                                                           [
-                                                            _c(
-                                                              "div",
-                                                              {
-                                                                staticClass:
-                                                                  "slds-media__figure slds-line-height_reset"
-                                                              },
-                                                              [
-                                                                _c(
+                                                            a.ContentType !=
+                                                              null &&
+                                                            a.ContentType.includes(
+                                                              "image"
+                                                            )
+                                                              ? _c("img", {
+                                                                  attrs: {
+                                                                    src:
+                                                                      "/servlet/servlet.FileDownload?file=" +
+                                                                      a.Id
+                                                                  }
+                                                                })
+                                                              : _c(
                                                                   "span",
                                                                   {
                                                                     staticClass:
-                                                                      "slds-icon_container"
+                                                                      "slds-file__icon slds-icon_container"
                                                                   },
                                                                   [
                                                                     _c("svg", {
                                                                       staticClass:
-                                                                        "slds-icon slds-icon_x-small",
+                                                                        "slds-icon",
                                                                       domProps: {
                                                                         innerHTML: _vm._s(
                                                                           _vm._getAttachmentIcon(
@@ -30448,30 +30495,84 @@ var render = function() {
                                                                     })
                                                                   ]
                                                                 )
-                                                              ]
-                                                            ),
+                                                          ]
+                                                        ),
+                                                        _c(
+                                                          "figcaption",
+                                                          {
+                                                            staticClass:
+                                                              "slds-file__title slds-file__title_card slds-file-has-actions"
+                                                          },
+                                                          [
                                                             _c(
                                                               "div",
                                                               {
                                                                 staticClass:
-                                                                  "slds-media__body"
+                                                                  "slds-media slds-media_small slds-media_center",
+                                                                class:
+                                                                  _vm.$style
+                                                                    .attachment_name_area
                                                               },
                                                               [
                                                                 _c(
                                                                   "div",
                                                                   {
                                                                     staticClass:
-                                                                      "slds-file__text slds-truncate",
-                                                                    attrs: {
-                                                                      title:
-                                                                        a.Name
-                                                                    }
+                                                                      "slds-media__figure slds-line-height_reset"
                                                                   },
                                                                   [
-                                                                    _vm._v(
-                                                                      _vm._s(
-                                                                        a.Name
-                                                                      )
+                                                                    _c(
+                                                                      "span",
+                                                                      {
+                                                                        staticClass:
+                                                                          "slds-icon_container"
+                                                                      },
+                                                                      [
+                                                                        _c(
+                                                                          "svg",
+                                                                          {
+                                                                            staticClass:
+                                                                              "slds-icon slds-icon_x-small",
+                                                                            domProps: {
+                                                                              innerHTML: _vm._s(
+                                                                                _vm._getAttachmentIcon(
+                                                                                  {
+                                                                                    content_type:
+                                                                                      a.ContentType
+                                                                                  }
+                                                                                )
+                                                                              )
+                                                                            }
+                                                                          }
+                                                                        )
+                                                                      ]
+                                                                    )
+                                                                  ]
+                                                                ),
+                                                                _c(
+                                                                  "div",
+                                                                  {
+                                                                    staticClass:
+                                                                      "slds-media__body"
+                                                                  },
+                                                                  [
+                                                                    _c(
+                                                                      "div",
+                                                                      {
+                                                                        staticClass:
+                                                                          "slds-file__text slds-truncate",
+                                                                        attrs: {
+                                                                          title:
+                                                                            a.Name
+                                                                        }
+                                                                      },
+                                                                      [
+                                                                        _vm._v(
+                                                                          _vm._s(
+                                                                            a.Name
+                                                                          )
+                                                                        )
+                                                                      ]
                                                                     )
                                                                   ]
                                                                 )
@@ -30479,295 +30580,36 @@ var render = function() {
                                                             )
                                                           ]
                                                         )
-                                                      ]
-                                                    )
-                                                  ]),
-                                                  _vm.login_user.Id ===
-                                                  feed.CreatedById
-                                                    ? _c(
-                                                        "div",
-                                                        {
-                                                          staticClass:
-                                                            "slds-file__actions-menu"
-                                                        },
-                                                        [
-                                                          _c(
+                                                      ]),
+                                                      _vm.login_user.Id ===
+                                                      feed.CreatedById
+                                                        ? _c(
                                                             "div",
                                                             {
                                                               staticClass:
-                                                                "slds-button-group"
+                                                                "slds-file__actions-menu"
                                                             },
                                                             [
                                                               _c(
-                                                                "button",
-                                                                {
-                                                                  staticClass:
-                                                                    "slds-button slds-button_icon slds-button_icon slds-button_icon-x-small",
-                                                                  on: {
-                                                                    click: function(
-                                                                      $event
-                                                                    ) {
-                                                                      $event.stopPropagation()
-                                                                      _vm.clickDeleteAttachment(
-                                                                        {
-                                                                          attachment: a
-                                                                        }
-                                                                      )
-                                                                    }
-                                                                  }
-                                                                },
-                                                                [
-                                                                  _c("svg", {
-                                                                    staticClass:
-                                                                      "slds-button__icon",
-                                                                    domProps: {
-                                                                      innerHTML: _vm._s(
-                                                                        _vm.svgs
-                                                                          .utilities
-                                                                          .close
-                                                                      )
-                                                                    }
-                                                                  })
-                                                                ]
-                                                              )
-                                                            ]
-                                                          )
-                                                        ]
-                                                      )
-                                                    : _vm._e()
-                                                ]
-                                              )
-                                            ]
-                                          )
-                                        }
-                                      )
-                                    )
-                                  ]
-                                )
-                              : _vm._e(),
-                            _c("footer", { staticClass: "slds-post__footer" }, [
-                              _c(
-                                "ul",
-                                {
-                                  staticClass:
-                                    "slds-post__footer-actions-list slds-list_horizontal"
-                                },
-                                [
-                                  _c(
-                                    "li",
-                                    {
-                                      staticClass:
-                                        "slds-col slds-item slds-m-right_medium"
-                                    },
-                                    [
-                                      _c(
-                                        "button",
-                                        {
-                                          staticClass:
-                                            "slds-button_reset slds-post__footer-action",
-                                          on: {
-                                            click: function($event) {
-                                              _vm.clickLikeFeed({
-                                                feed_id: feed.Id
-                                              })
-                                            }
-                                          }
-                                        },
-                                        [
-                                          _c("svg", {
-                                            staticClass:
-                                              "slds-icon slds-icon-text-default slds-icon_x-small slds-align-middle",
-                                            domProps: {
-                                              innerHTML: _vm._s(
-                                                _vm.svgs.utilities.like
-                                              )
-                                            }
-                                          }),
-                                          _vm._v(
-                                            _vm._s(
-                                              _vm.isLikedFeed({
-                                                feed_id: feed.Id
-                                              })
-                                                ? "Unlike"
-                                                : "Like"
-                                            )
-                                          )
-                                        ]
-                                      )
-                                    ]
-                                  ),
-                                  _c(
-                                    "li",
-                                    {
-                                      staticClass:
-                                        "slds-col slds-item slds-m-right_medium"
-                                    },
-                                    [
-                                      _c(
-                                        "button",
-                                        {
-                                          staticClass:
-                                            "slds-button_reset slds-post__footer-action",
-                                          on: {
-                                            click: function($event) {
-                                              _vm.clickCommentIcon({
-                                                feed_id: feed.Id
-                                              })
-                                            }
-                                          }
-                                        },
-                                        [
-                                          _c("svg", {
-                                            staticClass:
-                                              "slds-icon slds-icon-text-default slds-icon_x-small slds-align-middle",
-                                            domProps: {
-                                              innerHTML: _vm._s(
-                                                _vm.svgs.utilities.share_post
-                                              )
-                                            }
-                                          }),
-                                          _vm._v(" Comment")
-                                        ]
-                                      )
-                                    ]
-                                  )
-                                ]
-                              ),
-                              _c(
-                                "ul",
-                                {
-                                  staticClass:
-                                    "slds-post__footer-meta-list slds-list_horizontal slds-has-dividers_right slds-text-title"
-                                },
-                                [
-                                  _c("li", { staticClass: "slds-item" }, [
-                                    _vm._v(
-                                      _vm._s(
-                                        _vm.getNumberOfFeedLikes({
-                                          feed_id: feed.Id
-                                        })
-                                      ) + " likes"
-                                    )
-                                  ]),
-                                  _c("li", { staticClass: "slds-item" }, [
-                                    _vm._v(
-                                      _vm._s(feed.number_of_comments__c) +
-                                        " comments"
-                                    )
-                                  ])
-                                ]
-                              )
-                            ])
-                          ]),
-                          _c(
-                            "div",
-                            { staticClass: "slds-feed__item-comments" },
-                            [
-                              feed.number_of_comments__c !== 0
-                                ? _c(
-                                    "ul",
-                                    _vm._l(
-                                      _vm.getComments({ feed_id: feed.Id }),
-                                      function(comment) {
-                                        return _c("li", { key: comment.Id }, [
-                                          _c(
-                                            "article",
-                                            {
-                                              staticClass:
-                                                "slds-comment slds-media slds-hint-parent"
-                                            },
-                                            [
-                                              _c(
-                                                "div",
-                                                {
-                                                  staticClass:
-                                                    "slds-media__figure"
-                                                },
-                                                [
-                                                  _c(
-                                                    "div",
-                                                    {
-                                                      staticClass:
-                                                        "slds-avatar slds-avatar_circle slds-avatar_medium"
-                                                    },
-                                                    [
-                                                      _c("img", {
-                                                        attrs: {
-                                                          alt: _vm.getUserName({
-                                                            user_id:
-                                                              comment.CreatedById
-                                                          }),
-                                                          src: _vm.getAvatar({
-                                                            user_id:
-                                                              comment.CreatedById
-                                                          })
-                                                        }
-                                                      })
-                                                    ]
-                                                  )
-                                                ]
-                                              ),
-                                              _c(
-                                                "div",
-                                                {
-                                                  staticClass:
-                                                    "slds-media__body"
-                                                },
-                                                [
-                                                  _c(
-                                                    "header",
-                                                    {
-                                                      staticClass:
-                                                        "slds-media slds-media_center"
-                                                    },
-                                                    [
-                                                      _c(
-                                                        "div",
-                                                        {
-                                                          staticClass:
-                                                            "slds-grid slds-grid_align-spread slds-has-flexi-truncate"
-                                                        },
-                                                        [
-                                                          _c("p", [
-                                                            _vm._v(
-                                                              _vm._s(
-                                                                _vm.getUserName(
-                                                                  {
-                                                                    user_id:
-                                                                      comment.CreatedById
-                                                                  }
-                                                                )
-                                                              )
-                                                            )
-                                                          ]),
-                                                          _vm.login_user.Id ===
-                                                          comment.CreatedById
-                                                            ? _c(
                                                                 "div",
                                                                 {
                                                                   staticClass:
-                                                                    "slds-dropdown-trigger slds-dropdown-trigger_click",
-                                                                  class: {
-                                                                    "slds-is-open":
-                                                                      _vm.is_show_menu_id ===
-                                                                      comment.Id
-                                                                  }
+                                                                    "slds-button-group"
                                                                 },
                                                                 [
                                                                   _c(
                                                                     "button",
                                                                     {
                                                                       staticClass:
-                                                                        "slds-button slds-button_icon slds-button_icon-border slds-button_icon-x-small",
+                                                                        "slds-button slds-button_icon slds-button_icon slds-button_icon-x-small",
                                                                       on: {
                                                                         click: function(
                                                                           $event
                                                                         ) {
                                                                           $event.stopPropagation()
-                                                                          _vm.clickMenu(
+                                                                          _vm.clickDeleteAttachment(
                                                                             {
-                                                                              object_id:
-                                                                                comment.Id
+                                                                              attachment: a
                                                                             }
                                                                           )
                                                                         }
@@ -30784,304 +30626,592 @@ var render = function() {
                                                                               _vm
                                                                                 .svgs
                                                                                 .utilities
-                                                                                .down
+                                                                                .close
                                                                             )
                                                                           }
                                                                         }
                                                                       )
                                                                     ]
-                                                                  ),
-                                                                  _c(
-                                                                    "div",
-                                                                    {
-                                                                      staticClass:
-                                                                        "slds-dropdown slds-dropdown_right"
-                                                                    },
-                                                                    [
-                                                                      _c(
-                                                                        "ul",
-                                                                        {
-                                                                          staticClass:
-                                                                            "slds-dropdown__list",
-                                                                          attrs: {
-                                                                            role:
-                                                                              "menu"
-                                                                          }
-                                                                        },
-                                                                        [
-                                                                          _c(
-                                                                            "li",
-                                                                            {
-                                                                              staticClass:
-                                                                                "slds-dropdown__item",
-                                                                              attrs: {
-                                                                                role:
-                                                                                  "presentation"
-                                                                              }
-                                                                            },
-                                                                            [
-                                                                              _c(
-                                                                                "a",
-                                                                                {
-                                                                                  attrs: {
-                                                                                    role:
-                                                                                      "menuitem"
-                                                                                  },
-                                                                                  on: {
-                                                                                    click: function(
-                                                                                      $event
-                                                                                    ) {
-                                                                                      _vm.clickDelete(
-                                                                                        {
-                                                                                          object: comment
-                                                                                        }
-                                                                                      )
-                                                                                    }
-                                                                                  }
-                                                                                },
-                                                                                [
-                                                                                  _vm._v(
-                                                                                    "Delete"
-                                                                                  )
-                                                                                ]
-                                                                              )
-                                                                            ]
-                                                                          )
-                                                                        ]
-                                                                      )
-                                                                    ]
-                                                                  )
-                                                                ]
-                                                              )
-                                                            : _vm._e()
-                                                        ]
-                                                      )
-                                                    ]
-                                                  ),
-                                                  _c(
-                                                    "div",
-                                                    {
-                                                      staticClass:
-                                                        "slds-comment__content slds-text-longform"
-                                                    },
-                                                    [
-                                                      _vm._v(
-                                                        _vm._s(
-                                                          comment.content__c
-                                                        )
-                                                      )
-                                                    ]
-                                                  ),
-                                                  _c(
-                                                    "footer",
-                                                    {
-                                                      staticClass: "slds-grid"
-                                                    },
-                                                    [
-                                                      _c(
-                                                        "ul",
-                                                        {
-                                                          staticClass:
-                                                            "slds-list_horizontal slds-has-dividers_right slds-text-body_small"
-                                                        },
-                                                        [
-                                                          _c(
-                                                            "li",
-                                                            {
-                                                              staticClass:
-                                                                "slds-item"
-                                                            },
-                                                            [
-                                                              _c(
-                                                                "button",
-                                                                {
-                                                                  staticClass:
-                                                                    "slds-button_reset slds-text-color_weak",
-                                                                  on: {
-                                                                    click: function(
-                                                                      $event
-                                                                    ) {
-                                                                      _vm.clickLikeComment(
-                                                                        {
-                                                                          comment_id:
-                                                                            comment.Id
-                                                                        }
-                                                                      )
-                                                                    }
-                                                                  }
-                                                                },
-                                                                [
-                                                                  _vm._v(
-                                                                    _vm._s(
-                                                                      _vm.isLikedComment(
-                                                                        {
-                                                                          comment_id:
-                                                                            comment.Id
-                                                                        }
-                                                                      )
-                                                                        ? "Unlike"
-                                                                        : "like"
-                                                                    )
                                                                   )
                                                                 ]
                                                               )
                                                             ]
-                                                          ),
-                                                          _c(
-                                                            "li",
-                                                            {
-                                                              staticClass:
-                                                                "slds-item"
-                                                            },
-                                                            [
-                                                              _vm._v(
-                                                                _vm._s(
-                                                                  comment.getElapsedTimeLabel()
-                                                                )
-                                                              )
-                                                            ]
                                                           )
-                                                        ]
-                                                      ),
-                                                      _c(
-                                                        "ul",
-                                                        {
-                                                          staticClass:
-                                                            "slds-post__footer-meta-list slds-list_horizontal slds-has-dividers_right slds-text-title"
-                                                        },
-                                                        [
-                                                          _c(
-                                                            "li",
-                                                            {
-                                                              staticClass:
-                                                                "slds-item"
-                                                            },
-                                                            [
-                                                              _vm._v(
-                                                                _vm._s(
-                                                                  _vm.getNumberOfCommentLikes(
-                                                                    {
-                                                                      comment_id:
-                                                                        comment.Id
-                                                                    }
-                                                                  )
-                                                                ) + " likes"
-                                                              )
-                                                            ]
-                                                          )
-                                                        ]
-                                                      )
+                                                        : _vm._e()
                                                     ]
                                                   )
                                                 ]
                                               )
-                                            ]
+                                            }
                                           )
-                                        ])
-                                      }
+                                        )
+                                      ]
                                     )
-                                  )
-                                : _vm._e(),
-                              _vm.expand_comment_feed_id === feed.Id
-                                ? _c(
-                                    "div",
-                                    {
-                                      staticClass:
-                                        "slds-media slds-comment slds-hint-parent"
-                                    },
-                                    [
-                                      _c(
-                                        "div",
-                                        { staticClass: "slds-media__figure" },
-                                        [
-                                          _c(
-                                            "div",
-                                            {
-                                              staticClass:
-                                                "slds-avatar slds-avatar_circle slds-avatar_medium"
-                                            },
-                                            [
-                                              _c("img", {
-                                                attrs: {
-                                                  alt: _vm.login_user.Name,
-                                                  src:
-                                                    _vm.login_user.FullPhotoUrl
-                                                }
-                                              })
-                                            ]
-                                          )
-                                        ]
-                                      ),
-                                      _c(
-                                        "div",
-                                        { staticClass: "slds-media__body" },
-                                        [
-                                          _c(
-                                            "div",
-                                            {
-                                              staticClass:
-                                                "slds-publisher slds-publisher_comment slds-is-active slds-has-focus"
-                                            },
-                                            [
-                                              _c("textarea", {
-                                                directives: [
-                                                  {
-                                                    name: "model",
-                                                    rawName: "v-model",
-                                                    value: _vm.comment.value,
-                                                    expression: "comment.value"
-                                                  }
-                                                ],
+                                  : _vm._e(),
+                                _c(
+                                  "footer",
+                                  { staticClass: "slds-post__footer" },
+                                  [
+                                    _c(
+                                      "ul",
+                                      {
+                                        staticClass:
+                                          "slds-post__footer-actions-list slds-list_horizontal"
+                                      },
+                                      [
+                                        _c(
+                                          "li",
+                                          {
+                                            staticClass:
+                                              "slds-col slds-item slds-m-right_medium"
+                                          },
+                                          [
+                                            _c(
+                                              "button",
+                                              {
                                                 staticClass:
-                                                  "slds-publisher__input slds-input_bare slds-text-longform",
-                                                attrs: {
-                                                  placeholder:
-                                                    "Write a comment…"
-                                                },
-                                                domProps: {
-                                                  value: _vm.comment.value
-                                                },
+                                                  "slds-button_reset slds-post__footer-action",
                                                 on: {
-                                                  input: function($event) {
-                                                    if (
-                                                      $event.target.composing
-                                                    ) {
-                                                      return
-                                                    }
-                                                    _vm.$set(
-                                                      _vm.comment,
-                                                      "value",
-                                                      $event.target.value
+                                                  click: function($event) {
+                                                    _vm.clickLikeFeed({
+                                                      feed_id: feed.Id
+                                                    })
+                                                  }
+                                                }
+                                              },
+                                              [
+                                                _c("svg", {
+                                                  staticClass:
+                                                    "slds-icon slds-icon-text-default slds-icon_x-small slds-align-middle",
+                                                  domProps: {
+                                                    innerHTML: _vm._s(
+                                                      _vm.svgs.utilities.like
                                                     )
                                                   }
+                                                }),
+                                                _vm._v(
+                                                  _vm._s(
+                                                    _vm.isLikedFeed({
+                                                      feed_id: feed.Id
+                                                    })
+                                                      ? "Unlike"
+                                                      : "Like"
+                                                  )
+                                                )
+                                              ]
+                                            )
+                                          ]
+                                        ),
+                                        _c(
+                                          "li",
+                                          {
+                                            staticClass:
+                                              "slds-col slds-item slds-m-right_medium"
+                                          },
+                                          [
+                                            _c(
+                                              "button",
+                                              {
+                                                staticClass:
+                                                  "slds-button_reset slds-post__footer-action",
+                                                on: {
+                                                  click: function($event) {
+                                                    _vm.clickCommentIcon({
+                                                      feed_id: feed.Id
+                                                    })
+                                                  }
                                                 }
-                                              }),
+                                              },
+                                              [
+                                                _c("svg", {
+                                                  staticClass:
+                                                    "slds-icon slds-icon-text-default slds-icon_x-small slds-align-middle",
+                                                  domProps: {
+                                                    innerHTML: _vm._s(
+                                                      _vm.svgs.utilities
+                                                        .share_post
+                                                    )
+                                                  }
+                                                }),
+                                                _vm._v(" Comment")
+                                              ]
+                                            )
+                                          ]
+                                        )
+                                      ]
+                                    ),
+                                    _c(
+                                      "ul",
+                                      {
+                                        staticClass:
+                                          "slds-post__footer-meta-list slds-list_horizontal slds-has-dividers_right slds-text-title"
+                                      },
+                                      [
+                                        _c("li", { staticClass: "slds-item" }, [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm.getNumberOfFeedLikes({
+                                                feed_id: feed.Id
+                                              })
+                                            ) + " likes"
+                                          )
+                                        ]),
+                                        _c("li", { staticClass: "slds-item" }, [
+                                          _vm._v(
+                                            _vm._s(feed.number_of_comments__c) +
+                                              " comments"
+                                          )
+                                        ])
+                                      ]
+                                    )
+                                  ]
+                                )
+                              ]),
+                              _c(
+                                "div",
+                                { staticClass: "slds-feed__item-comments" },
+                                [
+                                  feed.number_of_comments__c !== 0
+                                    ? _c(
+                                        "ul",
+                                        _vm._l(
+                                          _vm.getComments({ feed_id: feed.Id }),
+                                          function(comment) {
+                                            return _c(
+                                              "li",
+                                              { key: comment.Id },
+                                              [
+                                                _c(
+                                                  "article",
+                                                  {
+                                                    staticClass:
+                                                      "slds-comment slds-media slds-hint-parent"
+                                                  },
+                                                  [
+                                                    _c(
+                                                      "div",
+                                                      {
+                                                        staticClass:
+                                                          "slds-media__figure"
+                                                      },
+                                                      [
+                                                        _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "slds-avatar slds-avatar_circle slds-avatar_medium"
+                                                          },
+                                                          [
+                                                            _c("img", {
+                                                              attrs: {
+                                                                alt: _vm.getUserName(
+                                                                  {
+                                                                    user_id:
+                                                                      comment.CreatedById
+                                                                  }
+                                                                ),
+                                                                src: _vm.getAvatar(
+                                                                  {
+                                                                    user_id:
+                                                                      comment.CreatedById
+                                                                  }
+                                                                )
+                                                              }
+                                                            })
+                                                          ]
+                                                        )
+                                                      ]
+                                                    ),
+                                                    _c(
+                                                      "div",
+                                                      {
+                                                        staticClass:
+                                                          "slds-media__body"
+                                                      },
+                                                      [
+                                                        _c(
+                                                          "header",
+                                                          {
+                                                            staticClass:
+                                                              "slds-media slds-media_center"
+                                                          },
+                                                          [
+                                                            _c(
+                                                              "div",
+                                                              {
+                                                                staticClass:
+                                                                  "slds-grid slds-grid_align-spread slds-has-flexi-truncate"
+                                                              },
+                                                              [
+                                                                _c("p", [
+                                                                  _vm._v(
+                                                                    _vm._s(
+                                                                      _vm.getUserName(
+                                                                        {
+                                                                          user_id:
+                                                                            comment.CreatedById
+                                                                        }
+                                                                      )
+                                                                    )
+                                                                  )
+                                                                ]),
+                                                                _vm.login_user
+                                                                  .Id ===
+                                                                comment.CreatedById
+                                                                  ? _c(
+                                                                      "div",
+                                                                      {
+                                                                        staticClass:
+                                                                          "slds-dropdown-trigger slds-dropdown-trigger_click",
+                                                                        class: {
+                                                                          "slds-is-open":
+                                                                            _vm.is_show_menu_id ===
+                                                                            comment.Id
+                                                                        }
+                                                                      },
+                                                                      [
+                                                                        _c(
+                                                                          "button",
+                                                                          {
+                                                                            staticClass:
+                                                                              "slds-button slds-button_icon slds-button_icon-border slds-button_icon-x-small",
+                                                                            on: {
+                                                                              click: function(
+                                                                                $event
+                                                                              ) {
+                                                                                $event.stopPropagation()
+                                                                                _vm.clickMenu(
+                                                                                  {
+                                                                                    object_id:
+                                                                                      comment.Id
+                                                                                  }
+                                                                                )
+                                                                              }
+                                                                            }
+                                                                          },
+                                                                          [
+                                                                            _c(
+                                                                              "svg",
+                                                                              {
+                                                                                staticClass:
+                                                                                  "slds-button__icon",
+                                                                                domProps: {
+                                                                                  innerHTML: _vm._s(
+                                                                                    _vm
+                                                                                      .svgs
+                                                                                      .utilities
+                                                                                      .down
+                                                                                  )
+                                                                                }
+                                                                              }
+                                                                            )
+                                                                          ]
+                                                                        ),
+                                                                        _c(
+                                                                          "div",
+                                                                          {
+                                                                            staticClass:
+                                                                              "slds-dropdown slds-dropdown_right"
+                                                                          },
+                                                                          [
+                                                                            _c(
+                                                                              "ul",
+                                                                              {
+                                                                                staticClass:
+                                                                                  "slds-dropdown__list",
+                                                                                attrs: {
+                                                                                  role:
+                                                                                    "menu"
+                                                                                }
+                                                                              },
+                                                                              [
+                                                                                _c(
+                                                                                  "li",
+                                                                                  {
+                                                                                    staticClass:
+                                                                                      "slds-dropdown__item",
+                                                                                    attrs: {
+                                                                                      role:
+                                                                                        "presentation"
+                                                                                    }
+                                                                                  },
+                                                                                  [
+                                                                                    _c(
+                                                                                      "a",
+                                                                                      {
+                                                                                        attrs: {
+                                                                                          role:
+                                                                                            "menuitem"
+                                                                                        },
+                                                                                        on: {
+                                                                                          click: function(
+                                                                                            $event
+                                                                                          ) {
+                                                                                            _vm.clickDelete(
+                                                                                              {
+                                                                                                object: comment
+                                                                                              }
+                                                                                            )
+                                                                                          }
+                                                                                        }
+                                                                                      },
+                                                                                      [
+                                                                                        _vm._v(
+                                                                                          "Delete"
+                                                                                        )
+                                                                                      ]
+                                                                                    )
+                                                                                  ]
+                                                                                )
+                                                                              ]
+                                                                            )
+                                                                          ]
+                                                                        )
+                                                                      ]
+                                                                    )
+                                                                  : _vm._e()
+                                                              ]
+                                                            )
+                                                          ]
+                                                        ),
+                                                        _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "slds-comment__content slds-text-longform"
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              _vm._s(
+                                                                comment.content__c
+                                                              )
+                                                            )
+                                                          ]
+                                                        ),
+                                                        _c(
+                                                          "footer",
+                                                          {
+                                                            staticClass:
+                                                              "slds-grid slds-grid_align-spread"
+                                                          },
+                                                          [
+                                                            _c(
+                                                              "ul",
+                                                              {
+                                                                staticClass:
+                                                                  "slds-list_horizontal slds-has-dividers_right slds-text-body_small"
+                                                              },
+                                                              [
+                                                                _c(
+                                                                  "li",
+                                                                  {
+                                                                    staticClass:
+                                                                      "slds-item"
+                                                                  },
+                                                                  [
+                                                                    _c(
+                                                                      "button",
+                                                                      {
+                                                                        staticClass:
+                                                                          "slds-button_reset slds-text-color_weak",
+                                                                        on: {
+                                                                          click: function(
+                                                                            $event
+                                                                          ) {
+                                                                            _vm.clickLikeComment(
+                                                                              {
+                                                                                comment_id:
+                                                                                  comment.Id
+                                                                              }
+                                                                            )
+                                                                          }
+                                                                        }
+                                                                      },
+                                                                      [
+                                                                        _vm._v(
+                                                                          _vm._s(
+                                                                            _vm.isLikedComment(
+                                                                              {
+                                                                                comment_id:
+                                                                                  comment.Id
+                                                                              }
+                                                                            )
+                                                                              ? "Unlike"
+                                                                              : "like"
+                                                                          )
+                                                                        )
+                                                                      ]
+                                                                    )
+                                                                  ]
+                                                                ),
+                                                                _c(
+                                                                  "li",
+                                                                  {
+                                                                    staticClass:
+                                                                      "slds-item"
+                                                                  },
+                                                                  [
+                                                                    _vm._v(
+                                                                      _vm._s(
+                                                                        comment.getElapsedTimeLabel()
+                                                                      )
+                                                                    )
+                                                                  ]
+                                                                )
+                                                              ]
+                                                            ),
+                                                            _c(
+                                                              "ul",
+                                                              {
+                                                                staticClass:
+                                                                  "slds-list_horizontal slds-has-dividers_right slds-text-title"
+                                                              },
+                                                              [
+                                                                _c(
+                                                                  "li",
+                                                                  {
+                                                                    staticClass:
+                                                                      "slds-item"
+                                                                  },
+                                                                  [
+                                                                    _vm._v(
+                                                                      _vm._s(
+                                                                        _vm.getNumberOfCommentLikes(
+                                                                          {
+                                                                            comment_id:
+                                                                              comment.Id
+                                                                          }
+                                                                        )
+                                                                      ) +
+                                                                        " likes"
+                                                                    )
+                                                                  ]
+                                                                )
+                                                              ]
+                                                            )
+                                                          ]
+                                                        )
+                                                      ]
+                                                    )
+                                                  ]
+                                                )
+                                              ]
+                                            )
+                                          }
+                                        )
+                                      )
+                                    : _vm._e(),
+                                  _vm.expand_comment_feed_id === feed.Id
+                                    ? _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "slds-media slds-comment slds-hint-parent"
+                                        },
+                                        [
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass: "slds-media__figure"
+                                            },
+                                            [
                                               _c(
                                                 "div",
                                                 {
                                                   staticClass:
-                                                    "slds-publisher__actions slds-grid slds-grid_align-spread"
+                                                    "slds-avatar slds-avatar_circle slds-avatar_medium"
                                                 },
                                                 [
-                                                  _c("ul", {
-                                                    staticClass: "slds-grid"
+                                                  _c("img", {
+                                                    attrs: {
+                                                      alt: _vm.login_user.Name,
+                                                      src:
+                                                        _vm.login_user
+                                                          .FullPhotoUrl
+                                                    }
+                                                  })
+                                                ]
+                                              )
+                                            ]
+                                          ),
+                                          _c(
+                                            "div",
+                                            { staticClass: "slds-media__body" },
+                                            [
+                                              _c(
+                                                "div",
+                                                {
+                                                  staticClass:
+                                                    "slds-publisher slds-publisher_comment slds-is-active slds-has-focus"
+                                                },
+                                                [
+                                                  _c("textarea", {
+                                                    directives: [
+                                                      {
+                                                        name: "model",
+                                                        rawName: "v-model",
+                                                        value:
+                                                          _vm.comment.value,
+                                                        expression:
+                                                          "comment.value"
+                                                      }
+                                                    ],
+                                                    staticClass:
+                                                      "slds-publisher__input slds-input_bare slds-text-longform",
+                                                    attrs: {
+                                                      placeholder:
+                                                        "Write a comment…"
+                                                    },
+                                                    domProps: {
+                                                      value: _vm.comment.value
+                                                    },
+                                                    on: {
+                                                      input: function($event) {
+                                                        if (
+                                                          $event.target
+                                                            .composing
+                                                        ) {
+                                                          return
+                                                        }
+                                                        _vm.$set(
+                                                          _vm.comment,
+                                                          "value",
+                                                          $event.target.value
+                                                        )
+                                                      }
+                                                    }
                                                   }),
                                                   _c(
-                                                    "button",
+                                                    "div",
                                                     {
                                                       staticClass:
-                                                        "slds-button slds-button_brand",
-                                                      on: {
-                                                        click: function(
-                                                          $event
-                                                        ) {
-                                                          _vm.clickCommentButton(
-                                                            { feed_id: feed.Id }
-                                                          )
-                                                        }
-                                                      }
+                                                        "slds-publisher__actions slds-grid slds-grid_align-spread"
                                                     },
-                                                    [_vm._v("Comment")]
+                                                    [
+                                                      _c("ul", {
+                                                        staticClass: "slds-grid"
+                                                      }),
+                                                      _c(
+                                                        "button",
+                                                        {
+                                                          staticClass:
+                                                            "slds-button slds-button_brand",
+                                                          on: {
+                                                            click: function(
+                                                              $event
+                                                            ) {
+                                                              _vm.clickCommentButton(
+                                                                {
+                                                                  feed_id:
+                                                                    feed.Id
+                                                                }
+                                                              )
+                                                            }
+                                                          }
+                                                        },
+                                                        [_vm._v("Comment")]
+                                                      )
+                                                    ]
                                                   )
                                                 ]
                                               )
@@ -31089,23 +31219,23 @@ var render = function() {
                                           )
                                         ]
                                       )
-                                    ]
-                                  )
-                                : _vm._e()
+                                    : _vm._e()
+                                ]
+                              )
                             ]
                           )
-                        ]
+                        })
                       )
-                    })
+                    ],
+                    1
                   )
-                ],
-                1
-              )
-        ],
-        1
+            ],
+            1
+          )
+        ]
       )
-    ])
-  ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -31129,233 +31259,243 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "slds-page-header" }, [
-    _c("div", { staticClass: "slds-page-header__row" }, [
-      _c("div", { staticClass: "slds-page-header__col-title" }, [
-        _c("div", { staticClass: "slds-media" }, [
-          _c("div", { staticClass: "slds-media__figure" }, [
-            _c(
-              "span",
-              {
-                staticClass:
-                  "slds-icon_container slds-icon-standard-opportunity"
-              },
-              [
-                _c("svg", {
-                  staticClass: "slds-icon slds-page-header__icon",
-                  domProps: { innerHTML: _vm._s(_vm.svgs.standards.feed) }
-                })
-              ]
-            )
-          ]),
-          _c("div", { staticClass: "slds-media__body" }, [
-            _c("div", { staticClass: "slds-page-header__name" }, [
-              _c("div", { staticClass: "slds-page-header__name-title" }, [
-                _c("h1", [
-                  _c("span", [
-                    _vm._v(
-                      _vm._s(_vm.objects_attributes.Feeds__c.attribute.label)
+  return _c(
+    "div",
+    {
+      staticClass: "slds-page-header",
+      class: {
+        "slds-has-top-magnet": _vm.is_mobile,
+        "slds-has-bottom-magnet": _vm.is_mobile
+      }
+    },
+    [
+      _c("div", { staticClass: "slds-page-header__row" }, [
+        _c("div", { staticClass: "slds-page-header__col-title" }, [
+          _c("div", { staticClass: "slds-media" }, [
+            _c("div", { staticClass: "slds-media__figure" }, [
+              _c(
+                "span",
+                {
+                  staticClass:
+                    "slds-icon_container slds-icon-standard-opportunity"
+                },
+                [
+                  _c("svg", {
+                    staticClass: "slds-icon slds-page-header__icon",
+                    domProps: { innerHTML: _vm._s(_vm.svgs.standards.feed) }
+                  })
+                ]
+              )
+            ]),
+            _c("div", { staticClass: "slds-media__body" }, [
+              _c("div", { staticClass: "slds-page-header__name" }, [
+                _c("div", { staticClass: "slds-page-header__name-title" }, [
+                  _c("h1", [
+                    _c("span", [
+                      _vm._v(
+                        _vm._s(_vm.objects_attributes.Feeds__c.attribute.label)
+                      )
+                    ]),
+                    _c(
+                      "span",
+                      { staticClass: "slds-page-header__title slds-truncate" },
+                      [_vm._v(_vm._s(_vm.selected_order_type))]
                     )
-                  ]),
+                  ])
+                ]),
+                _c("div", { staticClass: "slds-page-header__name-switcher" }, [
                   _c(
-                    "span",
-                    { staticClass: "slds-page-header__title slds-truncate" },
-                    [_vm._v(_vm._s(_vm.selected_order_type))]
+                    "div",
+                    {
+                      staticClass:
+                        "slds-dropdown-trigger slds-dropdown-trigger_click",
+                      class: { "slds-is-open": _vm.is_show_dropdown }
+                    },
+                    [
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "slds-button slds-button_icon slds-button_icon-small",
+                          on: {
+                            click: function($event) {
+                              $event.stopPropagation()
+                              _vm.is_show_dropdown = !_vm.is_show_dropdown
+                            }
+                          }
+                        },
+                        [
+                          _c("svg", {
+                            staticClass: "slds-button__icon slds-icon_x-small",
+                            domProps: {
+                              innerHTML: _vm._s(_vm.svgs.utilities.down)
+                            }
+                          })
+                        ]
+                      ),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "slds-dropdown slds-dropdown_center slds-dropdown_small"
+                        },
+                        [
+                          _c(
+                            "ul",
+                            {
+                              staticClass: "slds-dropdown__list",
+                              attrs: { role: "menu" }
+                            },
+                            _vm._l(_vm._order_types, function(o) {
+                              return _c(
+                                "li",
+                                {
+                                  key: o,
+                                  staticClass: "slds-dropdown__item",
+                                  class: {
+                                    "slds-is-selected":
+                                      _vm.selected_order_type === o
+                                  },
+                                  attrs: { role: "presentation" }
+                                },
+                                [
+                                  _c(
+                                    "a",
+                                    {
+                                      attrs: { role: "menuitemcheckbox" },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.clickItem({ order_type: o })
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "span",
+                                        { staticClass: "slds-truncate" },
+                                        [
+                                          _c("svg", {
+                                            staticClass:
+                                              "slds-icon slds-icon_selected slds-icon_x-small slds-icon-text-default slds-m-right_x-small",
+                                            domProps: {
+                                              innerHTML: _vm._s(
+                                                _vm.svgs.utilities.check
+                                              )
+                                            }
+                                          }),
+                                          _vm._v(_vm._s(o))
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                ]
+                              )
+                            })
+                          )
+                        ]
+                      )
+                    ]
                   )
                 ])
-              ]),
-              _c("div", { staticClass: "slds-page-header__name-switcher" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "slds-dropdown-trigger slds-dropdown-trigger_click",
-                    class: { "slds-is-open": _vm.is_show_dropdown }
-                  },
-                  [
-                    _c(
-                      "button",
-                      {
-                        staticClass:
-                          "slds-button slds-button_icon slds-button_icon-small",
-                        on: {
-                          click: function($event) {
-                            $event.stopPropagation()
-                            _vm.is_show_dropdown = !_vm.is_show_dropdown
+              ])
+            ])
+          ])
+        ]),
+        _c("div", { staticClass: "slds-page-header__col-actions" }, [
+          _c("div", { staticClass: "slds-page-header__controls" }, [
+            _c("div", { staticClass: "slds-page-header__control" }, [
+              _c("ul", { staticClass: "slds-button-group-list" }, [
+                _c("li", [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "slds-button slds-button_neutral",
+                      on: { click: _vm.clickNew }
+                    },
+                    [_vm._v("New")]
+                  )
+                ]),
+                _c("li", [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "slds-dropdown-trigger slds-dropdown-trigger_click",
+                      class: { "slds-is-open": _vm.is_show_more }
+                    },
+                    [
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "slds-button slds-button_icon slds-button_icon-border-filled",
+                          on: {
+                            click: function($event) {
+                              $event.stopPropagation()
+                              _vm.is_show_more = !_vm.is_show_more
+                            }
                           }
-                        }
-                      },
-                      [
-                        _c("svg", {
-                          staticClass: "slds-button__icon slds-icon_x-small",
-                          domProps: {
-                            innerHTML: _vm._s(_vm.svgs.utilities.down)
-                          }
-                        })
-                      ]
-                    ),
-                    _c(
-                      "div",
-                      {
-                        staticClass:
-                          "slds-dropdown slds-dropdown_left slds-dropdown_small"
-                      },
-                      [
-                        _c(
-                          "ul",
-                          {
-                            staticClass: "slds-dropdown__list",
-                            attrs: { role: "menu" }
-                          },
-                          _vm._l(_vm._order_types, function(o) {
-                            return _c(
-                              "li",
-                              {
-                                key: o,
-                                staticClass: "slds-dropdown__item",
-                                class: {
-                                  "slds-is-selected":
-                                    _vm.selected_order_type === o
-                                },
-                                attrs: { role: "presentation" }
-                              },
-                              [
-                                _c(
-                                  "a",
-                                  {
-                                    attrs: { role: "menuitemcheckbox" },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.clickItem({ order_type: o })
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _c(
-                                      "span",
-                                      { staticClass: "slds-truncate" },
-                                      [
-                                        _c("svg", {
-                                          staticClass:
-                                            "slds-icon slds-icon_selected slds-icon_x-small slds-icon-text-default slds-m-right_x-small",
-                                          domProps: {
-                                            innerHTML: _vm._s(
-                                              _vm.svgs.utilities.check
-                                            )
-                                          }
-                                        }),
-                                        _vm._v(_vm._s(o))
-                                      ]
-                                    )
-                                  ]
-                                )
-                              ]
-                            )
+                        },
+                        [
+                          _c("svg", {
+                            staticClass: "slds-button__icon",
+                            domProps: {
+                              innerHTML: _vm._s(_vm.svgs.utilities.down)
+                            }
                           })
-                        )
-                      ]
-                    )
-                  ]
-                )
+                        ]
+                      ),
+                      _c(
+                        "div",
+                        { staticClass: "slds-dropdown slds-dropdown_right" },
+                        [
+                          _c(
+                            "ul",
+                            {
+                              staticClass: "slds-dropdown__list",
+                              attrs: { role: "menu" }
+                            },
+                            [
+                              _c(
+                                "li",
+                                {
+                                  staticClass: "slds-dropdown__item",
+                                  attrs: { role: "presentation" }
+                                },
+                                [
+                                  _c(
+                                    "a",
+                                    {
+                                      attrs: { role: "menuitem" },
+                                      on: { click: _vm.clickReset }
+                                    },
+                                    [_vm._v("Reset")]
+                                  )
+                                ]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                ])
               ])
             ])
           ])
         ])
       ]),
-      _c("div", { staticClass: "slds-page-header__col-actions" }, [
-        _c("div", { staticClass: "slds-page-header__controls" }, [
-          _c("div", { staticClass: "slds-page-header__control" }, [
-            _c("ul", { staticClass: "slds-button-group-list" }, [
-              _c("li", [
-                _c(
-                  "button",
-                  {
-                    staticClass: "slds-button slds-button_neutral",
-                    on: { click: _vm.clickNew }
-                  },
-                  [_vm._v("New")]
-                )
-              ]),
-              _c("li", [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "slds-dropdown-trigger slds-dropdown-trigger_click",
-                    class: { "slds-is-open": _vm.is_show_more }
-                  },
-                  [
-                    _c(
-                      "button",
-                      {
-                        staticClass:
-                          "slds-button slds-button_icon slds-button_icon-border-filled",
-                        on: {
-                          click: function($event) {
-                            $event.stopPropagation()
-                            _vm.is_show_more = !_vm.is_show_more
-                          }
-                        }
-                      },
-                      [
-                        _c("svg", {
-                          staticClass: "slds-button__icon",
-                          domProps: {
-                            innerHTML: _vm._s(_vm.svgs.utilities.down)
-                          }
-                        })
-                      ]
-                    ),
-                    _c(
-                      "div",
-                      { staticClass: "slds-dropdown slds-dropdown_right" },
-                      [
-                        _c(
-                          "ul",
-                          {
-                            staticClass: "slds-dropdown__list",
-                            attrs: { role: "menu" }
-                          },
-                          [
-                            _c(
-                              "li",
-                              {
-                                staticClass: "slds-dropdown__item",
-                                attrs: { role: "presentation" }
-                              },
-                              [
-                                _c(
-                                  "a",
-                                  {
-                                    attrs: { role: "menuitem" },
-                                    on: { click: _vm.clickReset }
-                                  },
-                                  [_vm._v("Reset")]
-                                )
-                              ]
-                            )
-                          ]
-                        )
-                      ]
-                    )
-                  ]
-                )
-              ])
-            ])
+      _c("div", { staticClass: "slds-page-header__row" }, [
+        _c("div", { staticClass: "slds-page-header__col-meta" }, [
+          _c("p", { staticClass: "slds-page-header__meta-text" }, [
+            _vm._v(
+              _vm._s(_vm.feeds.length) + " items " + _vm._s(_vm.updated_label)
+            )
           ])
         ])
       ])
-    ]),
-    _c("div", { staticClass: "slds-page-header__row" }, [
-      _c("div", { staticClass: "slds-page-header__col-meta" }, [
-        _c("p", { staticClass: "slds-page-header__meta-text" }, [
-          _vm._v(
-            _vm._s(_vm.feeds.length) + " items " + _vm._s(_vm.updated_label)
-          )
-        ])
-      ])
-    ])
-  ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -32225,6 +32365,7 @@ var render = function() {
       "div",
       {
         staticClass: "slds-notify slds-notify_toast slds-theme_success",
+        class: ((_obj = {}), (_obj[_vm.$style.mobile] = _vm.is_mobile), _obj),
         attrs: { role: "status" }
       },
       [
@@ -32265,6 +32406,7 @@ var render = function() {
       ]
     )
   ])
+  var _obj
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -32291,8 +32433,9 @@ var render = function() {
   return _c(
     "article",
     {
-      staticClass: "slds-p-around_small slds-brand-band slds-brand-band_large",
-      class: _vm.$style.root
+      staticClass: "slds-brand-band slds-brand-band_large",
+      class: [_vm.$style.root, { "slds-p-around_small": !_vm.is_mobile }],
+      style: _vm.root_style
     },
     [
       _c(
@@ -32302,10 +32445,7 @@ var render = function() {
         1
       ),
       _vm.rendered
-        ? [
-            _c("v-header", { ref: "header" }),
-            _c("v-contents", { staticClass: "slds-m-top_medium" })
-          ]
+        ? [_c("v-header", { ref: "header" }), _c("v-contents")]
         : _vm._e(),
       _c(
         "transition",
@@ -32535,6 +32675,27 @@ if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(/*! ../../../../node_modules/vue-style-loader/lib/addStylesClient.js */ "../../../node_modules/vue-style-loader/lib/addStylesClient.js").default
 var update = add("457212ea", content, false, {});
+// Hot Module Replacement
+if(false) {}
+
+/***/ }),
+
+/***/ "../../../node_modules/vue-style-loader/index.js!../../../node_modules/css-loader/index.js?!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src/index.js?!../../../node_modules/stylus-loader/index.js!../../../node_modules/vue-loader/lib/index.js?!./components/toast.vue?vue&type=style&index=0&lang=stylus&module=true&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** /Users/kenichi-odo/apps/slds-feeds-sample/node_modules/vue-style-loader!/Users/kenichi-odo/apps/slds-feeds-sample/node_modules/css-loader??ref--2-oneOf-0-1!/Users/kenichi-odo/apps/slds-feeds-sample/node_modules/vue-loader/lib/loaders/stylePostLoader.js!/Users/kenichi-odo/apps/slds-feeds-sample/node_modules/postcss-loader/src??postcss!/Users/kenichi-odo/apps/slds-feeds-sample/node_modules/stylus-loader!/Users/kenichi-odo/apps/slds-feeds-sample/node_modules/vue-loader/lib??vue-loader-options!./components/toast.vue?vue&type=style&index=0&lang=stylus&module=true& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--2-oneOf-0-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??postcss!../../../../node_modules/stylus-loader!../../../../node_modules/vue-loader/lib??vue-loader-options!./toast.vue?vue&type=style&index=0&lang=stylus&module=true& */ "../../../node_modules/css-loader/index.js?!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src/index.js?!../../../node_modules/stylus-loader/index.js!../../../node_modules/vue-loader/lib/index.js?!./components/toast.vue?vue&type=style&index=0&lang=stylus&module=true&");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(/*! ../../../../node_modules/vue-style-loader/lib/addStylesClient.js */ "../../../node_modules/vue-style-loader/lib/addStylesClient.js").default
+var update = add("221c4bf4", content, false, {});
 // Hot Module Replacement
 if(false) {}
 
@@ -44652,22 +44813,45 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _toast_vue_vue_type_template_id_c5129308_lang_pug___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toast.vue?vue&type=template&id=c5129308&lang=pug& */ "./components/toast.vue?vue&type=template&id=c5129308&lang=pug&");
+/* WEBPACK VAR INJECTION */(function(module) {/* harmony import */ var _toast_vue_vue_type_template_id_c5129308_lang_pug___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toast.vue?vue&type=template&id=c5129308&lang=pug& */ "./components/toast.vue?vue&type=template&id=c5129308&lang=pug&");
 /* harmony import */ var _toast_vue_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toast.vue?vue&type=script&lang=ts& */ "./components/toast.vue?vue&type=script&lang=ts&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _toast_vue_vue_type_style_index_0_lang_stylus_module_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./toast.vue?vue&type=style&index=0&lang=stylus&module=true& */ "./components/toast.vue?vue&type=style&index=0&lang=stylus&module=true&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
 
+
+var cssModules = {}
+var disposed = false
+
+function injectStyles (context) {
+  if (disposed) return
+  
+        cssModules["$style"] = (_toast_vue_vue_type_style_index_0_lang_stylus_module_true___WEBPACK_IMPORTED_MODULE_2__["default"].locals || _toast_vue_vue_type_style_index_0_lang_stylus_module_true___WEBPACK_IMPORTED_MODULE_2__["default"])
+        Object.defineProperty(this, "$style", {
+          get: function () {
+            return cssModules["$style"]
+          }
+        })
+      
+}
+
+
+  module.hot && false
+
+
+
+        module.hot && false
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _toast_vue_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_1__["default"],
   _toast_vue_vue_type_template_id_c5129308_lang_pug___WEBPACK_IMPORTED_MODULE_0__["render"],
   _toast_vue_vue_type_template_id_c5129308_lang_pug___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
-  null,
+  injectStyles,
   null,
   null
   
@@ -44677,6 +44861,7 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 if (false) { var api; }
 component.options.__file = "components/toast.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../node_modules/webpack/buildin/harmony-module.js */ "../../../node_modules/webpack/buildin/harmony-module.js")(module)))
 
 /***/ }),
 
@@ -44691,6 +44876,22 @@ component.options.__file = "components/toast.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_ts_loader_index_js_ref_4_1_node_modules_vue_loader_lib_index_js_vue_loader_options_toast_vue_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib!../../../../node_modules/ts-loader??ref--4-1!../../../../node_modules/vue-loader/lib??vue-loader-options!./toast.vue?vue&type=script&lang=ts& */ "../../../node_modules/babel-loader/lib/index.js!../../../node_modules/ts-loader/index.js?!../../../node_modules/vue-loader/lib/index.js?!./components/toast.vue?vue&type=script&lang=ts&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_node_modules_ts_loader_index_js_ref_4_1_node_modules_vue_loader_lib_index_js_vue_loader_options_toast_vue_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./components/toast.vue?vue&type=style&index=0&lang=stylus&module=true&":
+/*!******************************************************************************!*\
+  !*** ./components/toast.vue?vue&type=style&index=0&lang=stylus&module=true& ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_ref_2_oneOf_0_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_postcss_node_modules_stylus_loader_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_toast_vue_vue_type_style_index_0_lang_stylus_module_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-style-loader!../../../../node_modules/css-loader??ref--2-oneOf-0-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??postcss!../../../../node_modules/stylus-loader!../../../../node_modules/vue-loader/lib??vue-loader-options!./toast.vue?vue&type=style&index=0&lang=stylus&module=true& */ "../../../node_modules/vue-style-loader/index.js!../../../node_modules/css-loader/index.js?!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src/index.js?!../../../node_modules/stylus-loader/index.js!../../../node_modules/vue-loader/lib/index.js?!./components/toast.vue?vue&type=style&index=0&lang=stylus&module=true&");
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_ref_2_oneOf_0_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_postcss_node_modules_stylus_loader_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_toast_vue_vue_type_style_index_0_lang_stylus_module_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_ref_2_oneOf_0_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_postcss_node_modules_stylus_loader_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_toast_vue_vue_type_style_index_0_lang_stylus_module_true___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_ref_2_oneOf_0_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_postcss_node_modules_stylus_loader_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_toast_vue_vue_type_style_index_0_lang_stylus_module_true___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_ref_2_oneOf_0_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_postcss_node_modules_stylus_loader_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_toast_vue_vue_type_style_index_0_lang_stylus_module_true___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_ref_2_oneOf_0_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_postcss_node_modules_stylus_loader_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_toast_vue_vue_type_style_index_0_lang_stylus_module_true___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -45104,6 +45305,10 @@ var state = function () {
     this.is_show_new_feed_modal = false;
     this.users = [];
     this.common_mdts = [];
+    this.window = {
+      width: 0,
+      height: 0
+    };
   }
 
   return state;
@@ -45116,6 +45321,13 @@ var getters = function (_super) {
     return _super !== null && _super.apply(this, arguments) || this;
   }
 
+  Object.defineProperty(getters.prototype, "is_mobile", {
+    get: function get() {
+      return innerWidth < 480;
+    },
+    enumerable: true,
+    configurable: true
+  });
   Object.defineProperty(getters.prototype, "remote_actions", {
     get: function get() {
       return Object(_assets_remotings__WEBPACK_IMPORTED_MODULE_3__["init"])({
@@ -45263,6 +45475,15 @@ var mutations = function (_super) {
     this.state.is_show_new_feed_modal = _;
   };
 
+  mutations.prototype.setWindowSize = function (_a) {
+    var width = _a.width,
+        height = _a.height;
+    this.state.window = {
+      width: width,
+      height: height
+    };
+  };
+
   return mutations;
 }(Object(sinai__WEBPACK_IMPORTED_MODULE_1__["Mutations"])());
 
@@ -45300,6 +45521,10 @@ var actions = function (_super) {
       return __generator(this, function (_a) {
         switch (_a.label) {
           case 0:
+            this.mutations.setWindowSize({
+              width: innerWidth,
+              height: innerHeight
+            });
             return [4, Promise.all([this.getters.remote_actions.getObjectsAttributes({
               object_names: ['Feeds__c', 'Comments__c', 'Likes__c']
             }), Object(_objects_Common_mdt__WEBPACK_IMPORTED_MODULE_7__["default"])().limit(100).all()]).catch(function (_) {
