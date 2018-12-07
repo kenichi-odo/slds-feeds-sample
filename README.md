@@ -1,6 +1,8 @@
 ## Demo
 
-![Demo](/documents/images/demo.gif)
+![Demo](/documents/images/pc-demo.gif)
+
+![Demo](/documents/images/mobile-demo.gif)
 
 ## Usage
 
